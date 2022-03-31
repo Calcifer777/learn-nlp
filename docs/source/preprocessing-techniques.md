@@ -1,5 +1,4 @@
-
-## Logistic regression
+# Preprocessing techniques
 
 When preprocessing, you have to perform the following:
 - Tokenizing the string
