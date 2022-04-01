@@ -20,12 +20,12 @@ $P(w_i|class) = \frac{freq(w_i|c_i)+1}{|{Class}_i + |Vocabulary|}$
 
 $log\{\frac{P(pos)}{P(neg)} \cdot \prod_{i}{\frac{P(w_i|pos)}{P(w_i|neg)}} \} = \log{\frac{P(pos)}{P(neg)}} \cdot \sum_{i}{\log{\frac{P(w_i|pos)}{P(w_i|neg)}}} \lessgtr 0$
 
-## Naive Bayes Assumptions
+### Naive Bayes Assumptions
 
 - Independence between the predictors or features associated with each class:  this will lead to potentially under or over estimates the conditional probabilities of individual words by class
 - Relative frequencies in corpus, especially affecting the validation set: Assuming the reality behaves as our “balanced” training dataset would result in a very optimistic or very pessimistic model
 
-## Causes of errors
+### Causes of errors
 
 - Processing as a source of errors
     - Removing punctuation can represent a different meaning
@@ -35,3 +35,8 @@ $log\{\frac{P(pos)}{P(neg)} \cdot \prod_{i}{\frac{P(w_i|pos)}{P(w_i|neg)}} \} = 
     - sarcasm
     - irony
     - euphemisms
+
+## Vector space models
+
+
+
