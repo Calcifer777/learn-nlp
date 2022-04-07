@@ -35,8 +35,3 @@ $log\{\frac{P(pos)}{P(neg)} \cdot \prod_{i}{\frac{P(w_i|pos)}{P(w_i|neg)}} \} = 
     - sarcasm
     - irony
     - euphemisms
-
-## Vector space models
-
-
-

@@ -13,4 +13,3 @@
 ## Books
 
 - [(2021) Jurafsky - Speech and Language Processing](https://web.stanford.edu/~jurafsky/slp3/ed3book.pdf)
-
