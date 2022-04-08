@@ -12,8 +12,10 @@ Learning resources for NLP
 
   language-modelling.md
   resources.md
-  preprocessing-techniques.md
+  misc.md
   sentiment-analysis.md
+  tagging-problems.md
+  machine-translation.md
 
 
 Indices and tables
