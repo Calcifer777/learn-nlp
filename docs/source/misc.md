@@ -18,8 +18,8 @@ While this algorithm loses in precision, it gains in performance.
 ### Creating the hash table
 
 1. Given a set of vectors
-2. Create a set of hyperplanes in that vector space. Each hyperplanes divides the vector space in 2; $n$ planes will divide the space $2*n$ regions
-3. Compute the hash of each vector $v$ as $h(v) = \sum_{i=p}^{n}{I(v \cdot p > 0)^i}$
+2. Create a set of hyperplanes in that vector space. Each hyperplanes divides the vector space in 2; $n$ planes will divide the space $2^n$ regions
+3. Compute the hash of each vector $v$ as $h(v) = \sum_{i=0}^{n}{2^{I(v \cdot p_i > 0)}}$
 
 ### Getting the KNN of a vector
 
