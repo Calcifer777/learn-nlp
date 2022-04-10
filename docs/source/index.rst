@@ -11,11 +11,11 @@ Learning resources for NLP
   :caption: Contents:
 
   language-modelling.md
-  resources.md
-  misc.md
   sentiment-analysis.md
   tagging-problems.md
   machine-translation.md
+  misc.md
+  resources.md
 
 
 Indices and tables

@@ -13,4 +13,4 @@ Idea: find the matrix that maps the word embeddings of a corpus in a given langu
 
 Compute translations for new words $w_1$ by finding the nearest neigbors of the corresponding predicted mappings $w_1 R$.
 
-You can improve prediction performance by using the [locality sensitive hasing tecnique](misc.html#Locality-sensitive-hashing)
+You can improve prediction performance by using the [locality sensitive hasing tecnique](misc.html#locality-sensitive-hashing-lsh)
