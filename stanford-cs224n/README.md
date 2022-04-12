@@ -26,6 +26,8 @@ Additional readings:
 - [The word analogy testing caveat](https://aclanthology.org/N18-2039.pdf)
 
 Other:
+- [Analytics Vidhya - word2vec explained](https://medium.com/analytics-vidhya/maths-behind-word2vec-explained-38d74f32726b)
+
 
 #### 2: Word Vectors 2 and Word Window Classification
 
