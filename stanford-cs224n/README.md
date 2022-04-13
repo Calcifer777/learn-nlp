@@ -26,6 +26,8 @@ Additional readings:
 - [The word analogy testing caveat](https://aclanthology.org/N18-2039.pdf)
 
 Other:
+- [Analytics Vidhya - word2vec explained](https://medium.com/analytics-vidhya/maths-behind-word2vec-explained-38d74f32726b)
+
 
 #### 2: Word Vectors 2 and Word Window Classification
 
@@ -37,3 +39,7 @@ Additional readings:
 - [A Latent Variable Model Approach to PMI-based Word Embeddings](https://aclanthology.org/Q16-1028/)
 - [Linear Algebraic Structure of Word Senses, with Applications to Polysemy](https://transacl.org/ojs/index.php/tacl/article/viewFile/1346/320)
 - [On the Dimensionality of Word Embedding](https://proceedings.neurips.cc/paper/2018/file/b534ba68236ba543ae44b22bd110a1d6-Paper.pdf)
+
+## Other
+
+- [Solutions](https://github.com/fullpower/CS224N-2022)
