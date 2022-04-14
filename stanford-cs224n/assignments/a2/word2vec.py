@@ -56,12 +56,13 @@ def naiveSoftmaxLossAndGradient(centerWordVec, outsideWordIdx, outsideVectors, d
     """
 
     ### YOUR CODE HERE (~6-8 Lines)
-    probs = softmax(np.dot(outsideVectors, centerWordVec))
-    loss = -np.log(probs[outsideWordIdx])
-    errors = probs.copy()  # y_hat
-    errors[outsideWordIdx] -= 1  # y_hat - y
-    gradCenterVec = np.dot(outsideVectors.T, errors)  # U (y_hat - y)
-    gradOutsideVecs = np.outer(errors, centerWordVec)
+    y_hat = softmax(np.dot(outsideVectors, centerWordVec))
+    loss = -np.log(y_hat[outsideWordIdx])
+    y = np.zeros_like(y_hat)
+    y[outsideWordIdx] = 1
+    error = y_hat - y
+    gradCenterVec = np.dot(outsideVectors.T, error)  # U (y_hat - y)
+    gradOutsideVecs = np.outer(error, centerWordVec)
 
     ### Please use the provided softmax function (imported earlier in this file)
     ### This numerically stable implementation helps you avoid issues pertaining
@@ -112,24 +113,36 @@ def negSamplingLossAndGradient(
     # centerwordvec:        3 x 1
     # loss:                 1 x 1
     # sigval:               11 x 1
-    # outsideVectors.shape  10 x 3
-    u_pos = outsideVectors[outsideWordIdx, :]
+    # outsideVectors        10 x 3
+    u_pos = outsideVectors[outsideWordIdx]
     u_neg = outsideVectors[negSampleWordIndices]
-    logit_pos = np.dot(u_pos, centerWordVec)
-    logit_neg = np.matmul(u_neg, centerWordVec)
-    probs_pos = -np.log(sigmoid(logit_pos))
-    probs_neg = -np.sum(np.log(sigmoid(-logit_neg)))
-    loss = probs_pos + probs_neg
+    score_pos = np.dot(u_pos, centerWordVec)
+    score_neg = np.matmul(u_neg, centerWordVec)
+    sig_pos = sigmoid(score_pos)
+    sig_neg = sigmoid(score_neg)
+    loss = - np.log(sig_pos) - np.sum(np.log(sigmoid(-score_neg)))
     #
-    gradCenterPos = np.dot(sigmoid(logit_pos)-1, u_pos)
-    gradCenterNeg = np.dot(sigmoid(logit_neg).T, u_neg)
+    gradCenterPos = np.dot(sig_pos-1, u_pos)
+    gradCenterNeg = np.dot(sig_neg.T, u_neg)
     gradCenterVec = gradCenterPos + gradCenterNeg
     #
     gradOutsideVecs = np.zeros_like(outsideVectors)  # Initialize the gradient.
-    gradOutsideVecs[outsideWordIdx] += (sigmoid(logit_pos) - 1) * centerWordVec
-    gradOutsideTempVecs = np.outer(sigmoid(logit_neg), centerWordVec)
+    gradOutsideVecs[outsideWordIdx] += (sig_pos - 1) * centerWordVec
+    gradOutsideTempVecs = np.outer(sig_neg, centerWordVec)
     for i, idx in enumerate(negSampleWordIndices):
         gradOutsideVecs[idx] += gradOutsideTempVecs[i]
+
+    ## u_pos = outsideVectors[outsideWordIdx]
+    ## u_neg = outsideVectors[negSampleWordIndices]
+    ## logit_pos = np.matmul(u_pos, centerWordVec)
+    ## logit_neg = np.matmul(u_neg, centerWordVec)
+    ## loss = -np.log(sigmoid(logit_pos)) - np.sum(np.log(sigmoid(-logit_neg)))
+    ## gradCenterVec = (sigmoid(logit_pos) - 1) * u_pos + np.matmul(sigmoid(logit_neg).T, u_neg)
+    ## gradOutsideVecs = np.zeros_like(outsideVectors)
+    ## gradOutsideVecs[outsideWordIdx] += (sigmoid(logit_pos) - 1) * centerWordVec
+    ## gradOutsideTempVecs = np.outer(sigmoid(logit_neg), centerWordVec)
+    ## for i, idx in enumerate(negSampleWordIndices):
+    ##     gradOutsideVecs[idx] += gradOutsideTempVecs[i]
 
     ### Please use your implementation of sigmoid in here.
 
