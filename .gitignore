@@ -467,3 +467,6 @@ TSWLatexianTemp*
 #*Notes.bib
 
 **/papers/
+*.npy
+*.pickle
+stanford-cs224n/assignments/a2/word_vectors.png
