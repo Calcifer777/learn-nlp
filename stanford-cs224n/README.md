@@ -40,6 +40,22 @@ Additional readings:
 - [Linear Algebraic Structure of Word Senses, with Applications to Polysemy](https://transacl.org/ojs/index.php/tacl/article/viewFile/1346/320)
 - [On the Dimensionality of Word Embedding](https://proceedings.neurips.cc/paper/2018/file/b534ba68236ba543ae44b22bd110a1d6-Paper.pdf)
 
+#### 3: Backprop and Neural Networks
+
+- [Matrix calculus notes](http://web.stanford.edu/class/cs224n/readings/gradient-notes.pdf)
+- [Review of differential calculus](http://web.stanford.edu/class/cs224n/readings/review-differential-calculus.pdf)
+- [CS231n notes on network architectures](http://cs231n.github.io/neural-networks-1/)
+- [CS231n notes on backprop](http://cs231n.github.io/optimization-2/)
+- [Derivatives, Backpropagation, and Vectorization](http://cs231n.stanford.edu/handouts/derivatives.pdf)
+- [Learning Representations by Backpropagating Errors](http://www.iro.umontreal.ca/~vincentp/ift3395/lectures/backprop_old.pdf)
+
+Additional Readings:
+- [Yes you should understand backprop](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b)
+- [Natural Language Processing (Almost) from Scratch](http://www.jmlr.org/papers/volume12/collobert11a/collobert11a.pdf)
+- [Vector, Matrix, and Tensor Derivatives](http://cs231n.stanford.edu/vecDerivs.pdf)
+
+Other:
+- [The softmax function and its derivative](https://eli.thegreenplace.net/2016/the-softmax-function-and-its-derivative/)
 ## Other
 
 - [Solutions](https://github.com/fullpower/CS224N-2022)
