@@ -11,6 +11,8 @@ Learning resources for NLP
   :caption: Contents:
 
   language-modelling.md
+  word-embeddings.md
+  parsing.md
   sentiment-analysis.md
   tagging-problems.md
   machine-translation.md

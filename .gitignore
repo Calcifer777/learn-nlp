@@ -1,4 +1,4 @@
-*.txt
+stanford-cs224n/assignments/**/*.txt
 hw*
 
 .vscode
@@ -470,3 +470,4 @@ TSWLatexianTemp*
 *.npy
 *.pickle
 stanford-cs224n/assignments/a2/word_vectors.png
+*.pkl
