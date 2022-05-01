@@ -56,7 +56,7 @@ def naiveSoftmaxLossAndGradient(centerWordVec, outsideWordIdx, outsideVectors, d
     """
 
     ### YOUR CODE HERE (~6-8 Lines)
-    y_hat = softmax(np.dot(outsideVectors, centerWordVec))
+    y_hat = softmax(np.matmul(outsideVectors, centerWordVec))
     loss = -np.log(y_hat[outsideWordIdx])
     y = np.zeros_like(y_hat)
     y[outsideWordIdx] = 1
