@@ -86,3 +86,7 @@ Only ones that can directly evaluate factuality, that is, "is the model saying c
 But are inconsistent
 
 ### Ethical considerations
+
+NLG produces output that is heavily depending on the training data, so it is easy to introduce bias in the models.
+
+NLP models are easy to compromise with adversarial attacks.
