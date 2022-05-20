@@ -13,9 +13,13 @@ Learning resources for NLP
   language-modelling.md
   word-embeddings.md
   parsing.md
+  architectures.md
+  coreference.md
+  nlp-applications.md
   sentiment-analysis.md
   tagging-problems.md
   machine-translation.md
+  t5-and-large-language-models.md
   misc.md
   resources.md
 
