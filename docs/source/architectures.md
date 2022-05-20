@@ -24,24 +24,11 @@ On step $t$, there is a hidden state $h^t$ and a cell state $c^t$:
 - Both are vectors of length $n$
 - The cell stores long-term information
 - The LSTM can read, erase, and write information from the cell
-- The selection of which information is erased/Written/read is controlled by three corresponding gates
-  - The gates are also vectors of length $n$
-  - On each timestep, each element of the gates can be open (1), closed (0), or somewhere in-between
-  - The gates are dynaic their value is computed based on the current context
-
-## Seq-to-seq
-
-Seq-to-seq architectures involve two NN components - an encoder and a decoder, where:
-- the encoder creates a sparse representation of the input (e.g.sentence, question, piece of text, etc)
-- the decoder uses the sparse representation of the input created by the encoder to yield an output (e.g. a translation, answer, summarization, etc)
-
-Use cases:
-- Summarization
 - Dialogue
 - Parsing
 - Text generation (e.g. code, music)
 
-### Seq-to-seq with RNN
+## Seq-to-seq with RNN
 
 When doing seq-to-seq with RNN the sparse representation of the input created by the encoder is the hidden state of the model at the last step of the input feed-forward pass.
 
@@ -49,7 +36,7 @@ The decoder starts with this hidden state and the `<START>` token to produce the
 
 During training of the decoder, a *teacher-forcing* method is often used. That is, the correct input of the decoded sentence is fed at each step of the feed-forward pass.
 
-### Seq-2-seq with attention
+## Seq-2-seq with attention
 
 An issue with vanilla seq-2-seq achitectures is that the last hidden state of the encoder needs to capture all the information about the source sentence; this can be seen an information bottleneck.
 
@@ -61,7 +48,7 @@ Then, a probability distribution is derived from these scores via a softmax acti
 
 The result of the weighted average is then combined with the hidden state of the decoder model and finally processed via an activation function.
 
-#### Intuition
+### Intuition
 
 Attention models involve a set of *values* (the hidden states of the encoder) and a query (the hidden state of the decoder model).
 
@@ -75,7 +62,7 @@ The attention output is then a selective summary of the information contained in
 
 Attention is then a way to obtain a fixed-size representation of an arbitrary set of representations - the values - dependent on some other representation - the query.
 
-#### Variants
+### Variants
 
 Ways to derive the attention scores:
 - basic dot product: $e_i = s^T h_i$. This assumes that the query and the values have the same dimention.
@@ -83,10 +70,75 @@ Ways to derive the attention scores:
 - Reduced rank multiplicative attention: $W = U^T V$, with $U$, $V$ "skinny" matrices; this reduces the number of parameters of $W$
 - additive attention: $e_i = v^T tanh(W_1 h_i + W_2 s)$, which effectively uses a dense NN layer to compute the scores
 
-### Self-attention
+## Seq-2-seq with self-attention
 
 Issues with recurrent seq-2-seq models:
 - linear interaction distance
 - lack of parallelizability
 
-### Transformers
+Attention operates on:
+- queries
+- keys
+- values
+
+In self-attention, the queries, keys, and values are drawn from the same source - the hidden states at a given layer of the model.
+
+Self-attention operates as follows:
+- Compute the key-query affinities: $eij = q_i^T k_j$
+- Compute the attention weights $a_{ij}$ from the affinities (with softmax)
+- Compute the output: $\sum_{j}{a_{ij}v_j}$
+
+### Issues: Sequence order
+
+Need to encode the order in the k, q, v
+
+**Sinusoids**
+- periodicity indicates that absolute position is not that important
+- can extrapolate to longer sequences
+- weigths cannot be learned
+
+**Learned**: a matrix $P$ with learnabl parameters
+-  each position gets to be learned to fit the data
+-  Can't extrapolate to indices outside $T$
+
+### Issues: lack of non-linearity
+
+There are not elementwise nonlinearities in self-attention; stacing more self-attention layers just re-averages value vectors
+
+**Fix**: add a feed-forward network to post-process each output vector
+
+### Issues: masking the future
+
+Important for decoders
+
+At every timestep, mask out attention to future words by setting non-admissible attention scores to $- \infty$
+
+## Transformers
+
+### Key-query-value attention
+
+Let $x_1, \cdots, x_T$ be input vectors to the Transformer encoder, with $x_i \in \mathbb{R}^d$
+
+The keys, queries, and values are:
+- $k_i = K x_i$, with $K$ a $d \times d$ matrix
+- $q_i = Q x_i$, with $Q$ a $d \times d$ matrix
+- $v_i = V x_i$, with $V$ a $d \times d$ matrix
+
+The output are defined as:
+$softmax(XQ(XK)^T) \cdot XV \in \mathbb{R}^{T \times d}$
+
+### Multi-headed attention
+
+Use $L$ $K_l$, $Q_l$, $V_l$ matrices that act independently on the inputs and compute different attention scores.
+
+The output of each head is $T \times \frac{d}{L}$ dimension.
+
+Concatenate the $L$ outputs to get a $T \times d$ matrix.
+
+### Tricks to help with training
+
+####  Residual connections
+
+####  Layer normalization
+
+####  Scaling the dot product
