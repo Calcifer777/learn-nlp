@@ -139,6 +139,24 @@ Concatenate the $L$ outputs to get a $T \times d$ matrix.
 
 ####  Residual connections
 
+$X_i = X_{i-1} + Layer(X_{i-1})$
+
 ####  Layer normalization
+
+Cut down on uninormative variation in hidden vector values by normalizing to unit mean and standard deviation within each layer.
+
+### Issues
+
+#### Quadratic compute in self-attention
+
+Computing all pairs of interactions means out computation grows quadratically with the sequence length
+
+Approaches:
+- Linformers
+
+#### Position representation
+
+- Relative linear position attention (Shaw et al 2018)
+- Dependency syntax-based position (Wang et al 2019)
 
 ####  Scaling the dot product
