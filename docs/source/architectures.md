@@ -154,9 +154,41 @@ Computing all pairs of interactions means out computation grows quadratically wi
 Approaches:
 - Linformers
 
+### Components
+
+Both encoer and decoder words take as inputs the word embeddings and the position index vectors.
+
+Encoder block:
+1. Multi-headed attention with scaled dot-product
+2. Residual Layer + Layer normalization
+3. Feed-forward Layer
+4. Residual Layer + Layer normalization
+
+Decoder block:
+1. Masked multi-headed attention with scaled dot-product
+2. Residual Layer + Layer normalization
+3. Multi-head cross attention
+4. Residual Layer + Layer normalization
+5. Feed-forward Layer
+6. Residual Layer + Layer normalization
+
 #### Position representation
 
 - Relative linear position attention (Shaw et al 2018)
 - Dependency syntax-based position (Wang et al 2019)
 
 ####  Scaling the dot product
+
+## Subword models
+
+All novel words seen at test time are mapped to a single `<UNK>`. Some tokens cannot be mapped:
+- Variations
+- misspleliings
+- novel items
+
+Byte-pair encoding
+
+## Pretraining
+
+Approaches:
+- Pretraining $\rightarrow$ fine-tuning
