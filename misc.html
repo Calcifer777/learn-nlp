@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Misc &mdash; NLP Notes 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Resources" href="resources.html" />
+    <link rel="prev" title="T5 and large language modes" href="t5-and-large-language-models.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NLP Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="language-modelling.html">Language modelling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="word-embeddings.html">Word Embeddings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsing.html">Parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architectures.html">Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coreference.html">Coreference resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nlp-applications.html">NLP Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentiment-analysis.html">Sentiment analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tagging-problems.html">Tagging Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="machine-translation.html">Machine translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="t5-and-large-language-models.html">T5 and large language modes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Misc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preprocessing-techniques">Preprocessing techniques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#locality-sensitive-hashing-lsh">Locality sensitive hashing (LSH)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-the-hash-table">Creating the hash table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-the-knn-of-a-vector">Getting the KNN of a vector</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NLP Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Misc</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/misc.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="tex2jax_ignore mathjax_ignore section" id="misc">
+<h1>Misc<a class="headerlink" href="#misc" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="preprocessing-techniques">
+<h2>Preprocessing techniques<a class="headerlink" href="#preprocessing-techniques" title="Permalink to this headline">¶</a></h2>
+<p>When preprocessing, you have to perform the following:</p>
+<ul class="simple">
+<li><p>Tokenizing the string</p></li>
+<li><p>Lowercasing</p></li>
+<li><p>Removing stop words and punctuation</p></li>
+<li><p>Stemming</p></li>
+<li><p>Remove other non useful characters (e.g. hyperlinks, Twitter marks and styles)</p></li>
+</ul>
+</div>
+<div class="section" id="locality-sensitive-hashing-lsh">
+<h2>Locality sensitive hashing (LSH)<a class="headerlink" href="#locality-sensitive-hashing-lsh" title="Permalink to this headline">¶</a></h2>
+<p>LSH is a technique to hash a set of vectors while attempting to keeping their locallity relationships; that is, close vectors will be hashed in the same hash buckets.</p>
+<p>While this algorithm loses in precision, it gains in performance.</p>
+<div class="section" id="creating-the-hash-table">
+<h3>Creating the hash table<a class="headerlink" href="#creating-the-hash-table" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Given a set of vectors</p></li>
+<li><p>Create a set of hyperplanes in that vector space. Each hyperplanes divides the vector space in 2; <span class="math notranslate nohighlight">\(n\)</span> planes will divide the space <span class="math notranslate nohighlight">\(2^n\)</span> regions</p></li>
+<li><p>Compute the hash of each vector <span class="math notranslate nohighlight">\(v\)</span> as <span class="math notranslate nohighlight">\(h(v) = \sum_{i=0}^{n}{2^{I(v \cdot p_i &gt; 0)}}\)</span></p></li>
+</ol>
+</div>
+<div class="section" id="getting-the-knn-of-a-vector">
+<h3>Getting the KNN of a vector<a class="headerlink" href="#getting-the-knn-of-a-vector" title="Permalink to this headline">¶</a></h3>
+<p>When computing the KNN of a vector, it is sufficient to search among the vectors in the same hash bucket.</p>
+<p>To improve the algorithm’s performance, compute several hash tables and search for the KNN in the union of the vectors in each hash table relevant bucket.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="resources.html" class="btn btn-neutral float-right" title="Resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="t5-and-large-language-models.html" class="btn btn-neutral float-left" title="T5 and large language modes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Marco Filippone.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

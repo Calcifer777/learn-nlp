@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Language modelling &mdash; NLP Notes 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Word Embeddings" href="word-embeddings.html" />
+    <link rel="prev" title="Learning resources for NLP" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NLP Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Language modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#use-cases">Use cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-problems">Basic problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#n-gram-models">N-gram models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#perplexity">Perplexity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#estimation-techniques">Estimation techniques</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linear-interpolation">Linear interpolation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#estimation">Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#discounting-models">Discounting models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word-embeddings.html">Word Embeddings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsing.html">Parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architectures.html">Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coreference.html">Coreference resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nlp-applications.html">NLP Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentiment-analysis.html">Sentiment analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tagging-problems.html">Tagging Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="machine-translation.html">Machine translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="t5-and-large-language-models.html">T5 and large language modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NLP Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Language modelling</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/language-modelling.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="tex2jax_ignore mathjax_ignore section" id="language-modelling">
+<h1>Language modelling<a class="headerlink" href="#language-modelling" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="use-cases">
+<h2>Use cases<a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Text summarization</p></li>
+<li><p>Translation</p></li>
+<li><p>Information extraction</p></li>
+<li><p>Dialogue systems</p></li>
+</ul>
+</div>
+<div class="section" id="basic-problems">
+<h2>Basic problems<a class="headerlink" href="#basic-problems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Tagging (part of speech tagging, named entity recognition)</p></li>
+<li><p>Parsing</p></li>
+<li><p>Ambiguity (syntactic, semantic, acousitc, discourse)</p></li>
+</ul>
+</div>
+<div class="section" id="n-gram-models">
+<h2>N-gram models<a class="headerlink" href="#n-gram-models" title="Permalink to this headline">¶</a></h2>
+<p>N-gram models define a language model as a Markov process of order N. A common value for N is 3, which yields the <strong>trigram</strong> model.</p>
+</div>
+<div class="section" id="perplexity">
+<h2>Perplexity<a class="headerlink" href="#perplexity" title="Permalink to this headline">¶</a></h2>
+<p>Given the (log)likelihood of a sentence defined as:</p>
+<p><span class="math notranslate nohighlight">\(l = log_{2}{\prod{p(x_i)}} = \sum{\log_{2}{p(x_i)}}\)</span></p>
+<p>, <strong>perplexity</strong> is defined as:</p>
+<p><span class="math notranslate nohighlight">\(P = 2^{-\frac{1}{N}l}\)</span></p>
+</div>
+<div class="section" id="estimation-techniques">
+<h2>Estimation techniques<a class="headerlink" href="#estimation-techniques" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="linear-interpolation">
+<h3>Linear interpolation<a class="headerlink" href="#linear-interpolation" title="Permalink to this headline">¶</a></h3>
+<p>Given the maximum likelihood estimator (in this case of a trigram model):</p>
+<p><span class="math notranslate nohighlight">\(q_{ML}(w_i | w_{i-1}, w_{i-2}) = \frac{count(w_i, w_{i-1}, w_{i-2})}{count(w_{i-1}, w_{i-2})}\)</span></p>
+<p>the linear interpolation estimator is defined as:</p>
+<p><span class="math notranslate nohighlight">\(q(w_i | w_{i-1}, w_{i-2}) = \lambda_{1}q_{ML}(w_i | w_{i-1}, w_{i-2}) + \lambda_{2}q_{ML}(w_i | w_{i-1}) + \lambda_{3}q(w_i)\)</span></p>
+<p>with <span class="math notranslate nohighlight">\(\sum{\lambda_i = 1}\)</span></p>
+<div class="section" id="estimation">
+<h4>Estimation<a class="headerlink" href="#estimation" title="Permalink to this headline">¶</a></h4>
+<p>Hold out part of training set as “validation” data</p>
+<p>Define <span class="math notranslate nohighlight">\(c'(w1, w2, w3)\)</span> to be the number of times the trigram <span class="math notranslate nohighlight">\((w1, w2, w3)\)</span> is seen in the validation set</p>
+<p>Solve:</p>
+<p><span class="math notranslate nohighlight">\(max_{\lambda_{1}, \lambda_{2}, \lambda_{3}} L(\lambda_{1}, \lambda_{2}, \lambda_{3}) = \sum{c'(w_{1}, w_{2}, w_{3}) log\{q(w_{3} | w_{2}, w_{3})\}}\)</span></p>
+<p>such that:</p>
+<p><span class="math notranslate nohighlight">\(\lambda_{1}, \lambda_{2}, \lambda_{3} = 1\)</span>, and <span class="math notranslate nohighlight">\(\lambda{i} \gt 0 \forall i\)</span></p>
+<p>where:</p>
+<p><span class="math notranslate nohighlight">\(q(w_{i} | w_{i−2}, w_{i−1}) = \lambda{1} \cdot q_{ML}(w_{i} | w_{i−2}, w_{i−1}) + \lambda{2} \cdot q_{ML}(w_i | w_{i−1}) + \lambda{3} × q_{ML}(w_i)\)</span></p>
+<p>Linear interpolation can be extended by making the <span class="math notranslate nohighlight">\(\lambda\)</span> coefficients vary with the frequency of <span class="math notranslate nohighlight">\(w_{i-1}, w_{i-2}\)</span>, that is.</p>
+</div>
+</div>
+<div class="section" id="discounting-models">
+<h3>Discounting models<a class="headerlink" href="#discounting-models" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="word-embeddings.html" class="btn btn-neutral float-right" title="Word Embeddings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Learning resources for NLP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Marco Filippone.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
