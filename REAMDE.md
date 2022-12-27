@@ -7,3 +7,9 @@
 ## Dependency Parsing
 
 - [(2011) Green - Dependency Parsing](https://www.mff.cuni.cz/veda/konference/wds/proc/pdf11/WDS11_123_i3_Green.pdf)
+
+## Tools
+
+- https://polyglot.readthedocs.io/en/latest/NamedEntityRecognition.html
+- spacy
+- layoutLM
