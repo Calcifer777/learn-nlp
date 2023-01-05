@@ -1,0 +1,496 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Architectures &mdash; NLP Notes 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Coreference resolution" href="coreference.html" />
+    <link rel="prev" title="Parsing" href="parsing.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NLP Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="language-modelling.html">Language modelling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="word-embeddings.html">Word Embeddings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsing.html">Parsing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architectures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rnn">RNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gated-units-lstm-gru">Gated units (LSTM, GRU)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lstm">LSTM</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#seq-to-seq-with-rnn">Seq-to-seq with RNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seq-2-seq-with-attention">Seq-2-seq with attention</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#intuition">Intuition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variants">Variants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#seq-2-seq-with-self-attention">Seq-2-seq with self-attention</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#issues-sequence-order">Issues: Sequence order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issues-lack-of-non-linearity">Issues: lack of non-linearity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issues-masking-the-future">Issues: masking the future</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#transformers">Transformers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#key-query-value-attention">Key-query-value attention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-headed-attention">Multi-headed attention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tricks-to-help-with-training">Tricks to help with training</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#residual-connections">Residual connections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#layer-normalization">Layer normalization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#issues">Issues</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#quadratic-compute-in-self-attention">Quadratic compute in self-attention</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#position-representation">Position representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scaling-the-dot-product">Scaling the dot product</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#subword-models">Subword models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pretraining">Pretraining</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="coreference.html">Coreference resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nlp-applications.html">NLP Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentiment-analysis.html">Sentiment analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tagging-problems.html">Tagging Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="machine-translation.html">Machine translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="t5-and-large-language-models.html">T5 and large language modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NLP Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Architectures</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/architectures.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="tex2jax_ignore mathjax_ignore section" id="architectures">
+<h1>Architectures<a class="headerlink" href="#architectures" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rnn">
+<h2>RNN<a class="headerlink" href="#rnn" title="Permalink to this headline">¶</a></h2>
+<p><img alt="rnn" src="_images/rnn.png" /></p>
+<p>Applications</p>
+<ul class="simple">
+<li><p>language modelling</p></li>
+<li><p>sequence tagging: POS, NER</p></li>
+<li><p>sentiment classification</p></li>
+<li><p>encoding: question answering, machine translation</p></li>
+<li><p>decoding: speech recognition, transation, summarization</p></li>
+</ul>
+<p>Issues</p>
+<ul class="simple">
+<li><p>Vanishing and exploding gradients</p></li>
+</ul>
+</div>
+<div class="section" id="gated-units-lstm-gru">
+<h2>Gated units (LSTM, GRU)<a class="headerlink" href="#gated-units-lstm-gru" title="Permalink to this headline">¶</a></h2>
+<p>Gated units address the vanishing gradient problem by adding ‘direct’ connections between the RNN units.</p>
+<div class="section" id="lstm">
+<h3>LSTM<a class="headerlink" href="#lstm" title="Permalink to this headline">¶</a></h3>
+<p>On step <span class="math notranslate nohighlight">\(t\)</span>, there is a hidden state <span class="math notranslate nohighlight">\(h^t\)</span> and a cell state <span class="math notranslate nohighlight">\(c^t\)</span>:</p>
+<ul class="simple">
+<li><p>Both are vectors of length <span class="math notranslate nohighlight">\(n\)</span></p></li>
+<li><p>The cell stores long-term information</p></li>
+<li><p>The LSTM can read, erase, and write information from the cell</p></li>
+<li><p>Dialogue</p></li>
+<li><p>Parsing</p></li>
+<li><p>Text generation (e.g. code, music)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="seq-to-seq-with-rnn">
+<h2>Seq-to-seq with RNN<a class="headerlink" href="#seq-to-seq-with-rnn" title="Permalink to this headline">¶</a></h2>
+<p>When doing seq-to-seq with RNN the sparse representation of the input created by the encoder is the hidden state of the model at the last step of the input feed-forward pass.</p>
+<p>The decoder starts with this hidden state and the <code class="docutils literal notranslate"><span class="pre">&lt;START&gt;</span></code> token to produce the output.</p>
+<p>During training of the decoder, a <em>teacher-forcing</em> method is often used. That is, the correct input of the decoded sentence is fed at each step of the feed-forward pass.</p>
+</div>
+<div class="section" id="seq-2-seq-with-attention">
+<h2>Seq-2-seq with attention<a class="headerlink" href="#seq-2-seq-with-attention" title="Permalink to this headline">¶</a></h2>
+<p>An issue with vanilla seq-2-seq achitectures is that the last hidden state of the encoder needs to capture all the information about the source sentence; this can be seen an information bottleneck.</p>
+<p>Attention models aim at reducing this issue by adding a connection between the decoder and the hidden states of each of the encoder steps. This modificaiton allows the NN to focus on a particular part of the source sequence.</p>
+<p>For each step <span class="math notranslate nohighlight">\(t\)</span> in the decoder, attention models generate a score that captures the similarity between the hidden state at that step and each of the hiddens states in the encoder model.</p>
+<p>Then, a probability distribution is derived from these scores via a softmax actiation function. This probability distribution is then used to create a weighted average of the hidden states of the encoder model.</p>
+<p>The result of the weighted average is then combined with the hidden state of the decoder model and finally processed via an activation function.</p>
+<div class="section" id="intuition">
+<h3>Intuition<a class="headerlink" href="#intuition" title="Permalink to this headline">¶</a></h3>
+<p>Attention models involve a set of <em>values</em> (the hidden states of the encoder) and a query (the hidden state of the decoder model).</p>
+<p>Attention modes then:</p>
+<ul class="simple">
+<li><p>compute the attention scores, which capture a measure of similarity/relevance between the query and the values</p></li>
+<li><p>Derive a probability distribution - the <em>attention distribution</em> from the attention scores</p></li>
+<li><p>Use the attention distribution to compute a weighted average of the values, the so called <em>attention output</em> or <em>context vector</em></p></li>
+<li><p>Combine the query with the context vector to generate the decoder output</p></li>
+</ul>
+<p>The attention output is then a selective summary of the information contained in the values, where the query determines which values to focus on.</p>
+<p>Attention is then a way to obtain a fixed-size representation of an arbitrary set of representations - the values - dependent on some other representation - the query.</p>
+</div>
+<div class="section" id="variants">
+<h3>Variants<a class="headerlink" href="#variants" title="Permalink to this headline">¶</a></h3>
+<p>Ways to derive the attention scores:</p>
+<ul class="simple">
+<li><p>basic dot product: <span class="math notranslate nohighlight">\(e_i = s^T h_i\)</span>. This assumes that the query and the values have the same dimention.</p></li>
+<li><p>multiplicative attention: <span class="math notranslate nohighlight">\(e_i = s^T W h_i\)</span>, with <span class="math notranslate nohighlight">\(W\)</span> a weight matrix</p></li>
+<li><p>Reduced rank multiplicative attention: <span class="math notranslate nohighlight">\(W = U^T V\)</span>, with <span class="math notranslate nohighlight">\(U\)</span>, <span class="math notranslate nohighlight">\(V\)</span> “skinny” matrices; this reduces the number of parameters of <span class="math notranslate nohighlight">\(W\)</span></p></li>
+<li><p>additive attention: <span class="math notranslate nohighlight">\(e_i = v^T tanh(W_1 h_i + W_2 s)\)</span>, which effectively uses a dense NN layer to compute the scores</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="seq-2-seq-with-self-attention">
+<h2>Seq-2-seq with self-attention<a class="headerlink" href="#seq-2-seq-with-self-attention" title="Permalink to this headline">¶</a></h2>
+<p>Issues with recurrent seq-2-seq models:</p>
+<ul class="simple">
+<li><p>linear interaction distance</p></li>
+<li><p>lack of parallelizability</p></li>
+</ul>
+<p>Attention operates on:</p>
+<ul class="simple">
+<li><p>queries</p></li>
+<li><p>keys</p></li>
+<li><p>values</p></li>
+</ul>
+<p>In self-attention, the queries, keys, and values are drawn from the same source - the hidden states at a given layer of the model.</p>
+<p>Self-attention operates as follows:</p>
+<ul class="simple">
+<li><p>Compute the key-query affinities: <span class="math notranslate nohighlight">\(eij = q_i^T k_j\)</span></p></li>
+<li><p>Compute the attention weights <span class="math notranslate nohighlight">\(a_{ij}\)</span> from the affinities (with softmax)</p></li>
+<li><p>Compute the output: <span class="math notranslate nohighlight">\(\sum_{j}{a_{ij}v_j}\)</span></p></li>
+</ul>
+<div class="section" id="issues-sequence-order">
+<h3>Issues: Sequence order<a class="headerlink" href="#issues-sequence-order" title="Permalink to this headline">¶</a></h3>
+<p>Need to encode the order in the k, q, v</p>
+<p><strong>Sinusoids</strong></p>
+<ul class="simple">
+<li><p>periodicity indicates that absolute position is not that important</p></li>
+<li><p>can extrapolate to longer sequences</p></li>
+<li><p>weigths cannot be learned</p></li>
+</ul>
+<p><strong>Learned</strong>: a matrix <span class="math notranslate nohighlight">\(P\)</span> with learnabl parameters</p>
+<ul class="simple">
+<li><p>each position gets to be learned to fit the data</p></li>
+<li><p>Can’t extrapolate to indices outside <span class="math notranslate nohighlight">\(T\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="issues-lack-of-non-linearity">
+<h3>Issues: lack of non-linearity<a class="headerlink" href="#issues-lack-of-non-linearity" title="Permalink to this headline">¶</a></h3>
+<p>There are not elementwise nonlinearities in self-attention; stacing more self-attention layers just re-averages value vectors</p>
+<p><strong>Fix</strong>: add a feed-forward network to post-process each output vector</p>
+</div>
+<div class="section" id="issues-masking-the-future">
+<h3>Issues: masking the future<a class="headerlink" href="#issues-masking-the-future" title="Permalink to this headline">¶</a></h3>
+<p>Important for decoders</p>
+<p>At every timestep, mask out attention to future words by setting non-admissible attention scores to <span class="math notranslate nohighlight">\(- \infty\)</span></p>
+</div>
+</div>
+<div class="section" id="transformers">
+<h2>Transformers<a class="headerlink" href="#transformers" title="Permalink to this headline">¶</a></h2>
+<p>https://medium.com/&#64;b.terryjack/deep-learning-the-transformer-9ae5e9c5a190</p>
+<div class="section" id="key-query-value-attention">
+<h3>Key-query-value attention<a class="headerlink" href="#key-query-value-attention" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(x_1, \cdots, x_T\)</span> be input vectors to the Transformer encoder, with <span class="math notranslate nohighlight">\(x_i \in \mathbb{R}^d\)</span></p>
+<p>The keys, queries, and values are:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(k_i = K x_i\)</span>, with <span class="math notranslate nohighlight">\(K\)</span> a <span class="math notranslate nohighlight">\(d \times d\)</span> matrix</p></li>
+<li><p><span class="math notranslate nohighlight">\(q_i = Q x_i\)</span>, with <span class="math notranslate nohighlight">\(Q\)</span> a <span class="math notranslate nohighlight">\(d \times d\)</span> matrix</p></li>
+<li><p><span class="math notranslate nohighlight">\(v_i = V x_i\)</span>, with <span class="math notranslate nohighlight">\(V\)</span> a <span class="math notranslate nohighlight">\(d \times d\)</span> matrix</p></li>
+</ul>
+<p>The output are defined as:
+<span class="math notranslate nohighlight">\(softmax(XQ(XK)^T) \cdot XV \in \mathbb{R}^{T \times d}\)</span></p>
+</div>
+<div class="section" id="multi-headed-attention">
+<h3>Multi-headed attention<a class="headerlink" href="#multi-headed-attention" title="Permalink to this headline">¶</a></h3>
+<p>Use <span class="math notranslate nohighlight">\(L\)</span> <span class="math notranslate nohighlight">\(K_l\)</span>, <span class="math notranslate nohighlight">\(Q_l\)</span>, <span class="math notranslate nohighlight">\(V_l\)</span> matrices that act independently on the inputs and compute different attention scores.</p>
+<p>The output of each head is <span class="math notranslate nohighlight">\(T \times \frac{d}{L}\)</span> dimension.</p>
+<p>Concatenate the <span class="math notranslate nohighlight">\(L\)</span> outputs to get a <span class="math notranslate nohighlight">\(T \times d\)</span> matrix.</p>
+</div>
+<div class="section" id="tricks-to-help-with-training">
+<h3>Tricks to help with training<a class="headerlink" href="#tricks-to-help-with-training" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="residual-connections">
+<h4>Residual connections<a class="headerlink" href="#residual-connections" title="Permalink to this headline">¶</a></h4>
+<p><span class="math notranslate nohighlight">\(X_i = X_{i-1} + Layer(X_{i-1})\)</span></p>
+</div>
+<div class="section" id="layer-normalization">
+<h4>Layer normalization<a class="headerlink" href="#layer-normalization" title="Permalink to this headline">¶</a></h4>
+<p>Cut down on uninormative variation in hidden vector values by normalizing to unit mean and standard deviation within each layer.</p>
+</div>
+</div>
+<div class="section" id="issues">
+<h3>Issues<a class="headerlink" href="#issues" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="quadratic-compute-in-self-attention">
+<h4>Quadratic compute in self-attention<a class="headerlink" href="#quadratic-compute-in-self-attention" title="Permalink to this headline">¶</a></h4>
+<p>Computing all pairs of interactions means out computation grows quadratically with the sequence length</p>
+<p>Approaches:</p>
+<ul class="simple">
+<li><p>Linformers</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="components">
+<h3>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h3>
+<p>Both encoer and decoder words take as inputs the word embeddings and the position index vectors.</p>
+<p>Encoder block:</p>
+<ol class="simple">
+<li><p>Multi-headed attention with scaled dot-product</p></li>
+<li><p>Residual Layer + Layer normalization</p></li>
+<li><p>Feed-forward Layer</p></li>
+<li><p>Residual Layer + Layer normalization</p></li>
+</ol>
+<p>Decoder block:</p>
+<ol class="simple">
+<li><p>Masked multi-headed attention with scaled dot-product</p></li>
+<li><p>Residual Layer + Layer normalization</p></li>
+<li><p>Multi-head cross attention</p></li>
+<li><p>Residual Layer + Layer normalization</p></li>
+<li><p>Feed-forward Layer</p></li>
+<li><p>Residual Layer + Layer normalization</p></li>
+</ol>
+<div class="section" id="position-representation">
+<h4>Position representation<a class="headerlink" href="#position-representation" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Relative linear position attention (Shaw et al 2018)</p></li>
+<li><p>Dependency syntax-based position (Wang et al 2019)</p></li>
+</ul>
+</div>
+<div class="section" id="scaling-the-dot-product">
+<h4>Scaling the dot product<a class="headerlink" href="#scaling-the-dot-product" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="section" id="subword-models">
+<h2>Subword models<a class="headerlink" href="#subword-models" title="Permalink to this headline">¶</a></h2>
+<p>All novel words seen at test time are mapped to a single <code class="docutils literal notranslate"><span class="pre">&lt;UNK&gt;</span></code>. Some tokens cannot be mapped:</p>
+<ul class="simple">
+<li><p>Variations</p></li>
+<li><p>misspleliings</p></li>
+<li><p>novel items</p></li>
+</ul>
+<p>Byte-pair encoding</p>
+</div>
+<div class="section" id="pretraining">
+<h2>Pretraining<a class="headerlink" href="#pretraining" title="Permalink to this headline">¶</a></h2>
+<p>Approaches:</p>
+<ul class="simple">
+<li><p>Pretraining <span class="math notranslate nohighlight">\(\rightarrow\)</span> fine-tuning</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="coreference.html" class="btn btn-neutral float-right" title="Coreference resolution" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="parsing.html" class="btn btn-neutral float-left" title="Parsing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Marco Filippone.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
