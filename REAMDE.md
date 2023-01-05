@@ -13,3 +13,7 @@
 - https://polyglot.readthedocs.io/en/latest/NamedEntityRecognition.html
 - spacy
 - layoutLM
+
+## Tecniques
+
+- Attention: https://arxiv.org/pdf/1409.0473.pdf

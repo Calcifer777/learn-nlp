@@ -7,7 +7,7 @@
 
 - https://www.depends-on-the-definition.com/sequence-tagging-lstm-crf/
 
-- https://keras.io/examples/nlp/ner_transformers/
+- Named Entity Recognition using Transformers: https://keras.io/examples/nlp/ner_transformers/
 
 - https://www.tensorflow.org/text/tutorials/nmt_with_attention
 - https://www.tensorflow.org/text/tutorials/transformer
@@ -24,3 +24,7 @@
 ## Todo's
 
 - Senna word embeddings
+- Spelling / context features
+- Seq2Seq with attention
+- Multi-head attention (a.k.a. transformers)
+- Bert-like (subword) tokenization

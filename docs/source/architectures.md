@@ -115,6 +115,8 @@ At every timestep, mask out attention to future words by setting non-admissible 
 
 ## Transformers
 
+https://medium.com/@b.terryjack/deep-learning-the-transformer-9ae5e9c5a190
+
 ### Key-query-value attention
 
 Let $x_1, \cdots, x_T$ be input vectors to the Transformer encoder, with $x_i \in \mathbb{R}^d$
