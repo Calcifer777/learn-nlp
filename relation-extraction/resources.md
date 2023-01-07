@@ -19,7 +19,16 @@
 - (2015) Relation Classification via Recurrent Neural Network - https://arxiv.org/pdf/1508.01006.pdf
 - (2015) Attention-based bidirectional long short-term memory networks for relation classification - https://aclanthology.org/P16-2034.pdf
 
+- (2016) Bidirectional Recurrent Convolutional Neural Network for Relation
+Classification https://aclanthology.org/P16-1072.pdf
+
+- (2019) DocRED: A Large-Scale Document-Level Relation Extraction Dataset
+
+
 ## Code samples
 
 - https://github.com/malllabiisc/RESIDE
 - https://huggingface.co/ychenNLP/arabic-relation-extraction
+- https://github.com/explosion/projects/tree/v3/tutorials/rel_component
+
+## Dataseta

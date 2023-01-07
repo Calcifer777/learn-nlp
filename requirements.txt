@@ -1,2 +1,6 @@
 tensorflow==2.11.0
 tensorflow-datasets==4.7.0
+tensorboard==2.11.0
+tensorflow-addons==0.17.1
+tensorflow-text==2.11.0
+tf-models-official==2.11.2
