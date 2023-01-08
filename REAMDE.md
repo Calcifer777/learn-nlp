@@ -17,3 +17,7 @@
 ## Tecniques
 
 - Attention: https://arxiv.org/pdf/1409.0473.pdf
+
+## Books
+
+https://github.com/PacktPublishing/Transformers-for-Natural-Language-Processing/

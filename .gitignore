@@ -471,3 +471,5 @@ TSWLatexianTemp*
 *.pickle
 stanford-cs224n/assignments/a2/word_vectors.png
 *.pkl
+
+**/vocab*
