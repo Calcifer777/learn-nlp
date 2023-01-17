@@ -2,6 +2,7 @@
 
 - https://towardsdatascience.com/named-entity-recognition-ner-meeting-industrys-requirement-by-applying-state-of-the-art-deep-698d2b3b4ede
 - http://alexminnaar.com/2019/08/22/ner-rnns-tensorflow.html
+- https://www.philschmid.de/huggingface-transformers-keras-tf
 
 ## Docs
 
